@@ -100,8 +100,9 @@ After=network-online.target
 
 # Nomad server should be run as the nomad user. Nomad clients
 # should be run as root
-User=nomad
-Group=nomad
+# Tive um problema com o usuário nomad (Constraint "missing drivers" filtered 1 nodes)
+User=root
+Group=root
 
 ExecReload=/bin/kill -HUP $MAINPID
 ExecStart=/usr/bin/nomad agent -config /etc/nomad.d
