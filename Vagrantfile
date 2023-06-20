@@ -140,6 +140,12 @@ WantedBy=multi-user.target
                 systemctl start nomad
 
                 usermod -aG docker vagrant
+
+                systemctl restart docker
+
+                systemctl restart nomad
+
+                systemctl daemon-reload
                 SHELL
             end
         end
