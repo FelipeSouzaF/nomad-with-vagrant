@@ -15,8 +15,8 @@ Vagrant.configure("2") do |config|
     config.vm.box = "bento/ubuntu-22.04"
 
     config.vm.provider :virtualbox do |v|
-      v.memory = 2048
-      v.cpus = 1
+      v.memory = 4096
+      v.cpus = 2
     end
 
     # Define two VMs with static private IP addresses.
