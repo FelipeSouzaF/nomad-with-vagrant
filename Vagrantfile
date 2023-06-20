@@ -52,6 +52,14 @@ Vagrant.configure("2") do |config|
                 echo #{ssh_pub_key} >> /home/vagrant/.ssh/authorized_keys &&
                 echo -e "#{hosts_file}" >> /etc/hosts
 
+                # config cpu in cgroup v2
+                mkdir -p /etc/systemd/system/user@.service.d
+                cat <<EOF | tee /etc/systemd/system/user@.service.d/delegate.conf
+[Service]
+Delegate=cpu cpuset io memory pids
+EOF
+                systemctl daemon-reload
+
                 apt update -y
 
                 apt install zip net-tools wget gpg coreutils ca-certificates curl gnupg -y
