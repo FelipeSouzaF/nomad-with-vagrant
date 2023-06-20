@@ -146,6 +146,22 @@ WantedBy=multi-user.target
                 systemctl restart nomad
 
                 systemctl daemon-reload
+
+                # https://developer.hashicorp.com/nomad/tutorials/get-started/gs-deploy-job#pytechco-redis-nomad-hcl
+                # nomad job run pytechco-redis.nomad.hcl
+
+                # nomad job run pytechco-web.nomad.hcl
+
+                # nomad node status -verbose \
+                #     $(nomad job allocs pytechco-web | grep -i running | awk '{print $2}') | \
+                #     grep -i ip-address | awk -F "=" '{print $2}' | xargs | \
+                #     awk '{print "http://"$1":5000"}'
+
+                # nomad job run pytechco-setup.nomad.hcl
+
+                # nomad job dispatch -meta budget="200" pytechco-setup
+
+                # nomad job run pytechco-employee.nomad.hcl
                 SHELL
             end
         end
