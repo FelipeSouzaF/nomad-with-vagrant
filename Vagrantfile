@@ -54,19 +54,9 @@ Vagrant.configure("2") do |config|
 
                 apt update -y
 
-                apt install zip net-tools wget gpg coreutils -y
-
-                # install nomad
-                wget -O- https://apt.releases.hashicorp.com/gpg | gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
-                echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | tee /etc/apt/sources.list.d/hashicorp.list
-
-                apt update -y
-
-                apt install nomad -y
+                apt install zip net-tools wget gpg coreutils ca-certificates curl gnupg -y
 
                 # install docker
-                apt install ca-certificates curl gnupg -y
-
                 install -m 0755 -d /etc/apt/keyrings
 
                 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /etc/apt/keyrings/docker.gpg
@@ -81,6 +71,14 @@ Vagrant.configure("2") do |config|
                 apt update -y
 
                 apt install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
+
+                # install nomad
+                wget -O- https://apt.releases.hashicorp.com/gpg | gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
+                echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | tee /etc/apt/sources.list.d/hashicorp.list
+
+                apt update -y
+
+                apt install nomad -y
 
                 # nomad systemd
                 touch /etc/systemd/system/nomad.service
